@@ -1,0 +1,33 @@
+services:
+  database:
+    image: mysql
+    ports: 
+      - 3306:3306
+    networks:
+      - mysql-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=mysql-db
+      - MYSQL_USER=db-user
+      - MYSQL_PASSWORD=password
+    volumes:
+      - db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    links:
+      - "database:db"
+    ports: 
+      - 8081:80
+    networks:
+      - mysql-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+
+
+volumes:
+  db-data:
+    driver: local
+networks:
+  mysql-network:
+    driver: bridge
