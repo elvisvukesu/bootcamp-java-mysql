@@ -75,14 +75,44 @@ networks:
     
 Exercise 4
 # Dockerize the java app
+# View base image documentation https://hub.docker.com/_/eclipse-temurin
 FROM eclipse-temurin:8-jdk-alpine
-RUN mkdir /app
-COPY build/libs/bootcamp-java-mysql-project-1.0-SNAPSHOT.jar /app
-WORKDIR /app
+RUN mkdir /opt/app
+COPY bootcamp-java-mysql-project-1.0-SNAPSHOT.jar /opt/app
+WORKDIR /opt/app
 EXPOSE 8080
 CMD ["java", "-jar", "bootcamp-java-mysql-project-1.0-SNAPSHOT.jar"]
 
 Exercise 5
+# To build and publish the image on dockerhub, follow the following steps
+
+# Add the palantir plugin id to the plugins section of the build.gradle file
+id "com.palantir.docker" version "0.22.1"
+
+# Ensure a version is mentioned in the build.gradle file
+
+# Add the docker configuration to the build.gradle file
+# More info on plugin used https://tomgregory.com/automating-docker-builds-with-gradle/
+# Create a repository in dockerhub
+# Replace <dockerHub-username> with your dockerhub username and the image name with your image name
+docker {
+    name "${project.name}:${project.version}"
+    files 'bootcamp-java-mysql-project-1.0-SNAPSHOT.jar'
+    tag 'DockerHub', "elvisvukesu/java-mysql-app:${project.version}"
+}
+
+# To view available tasks from the plugin run the following command and look for the 'docker tasks' section
+./gradlew tasks
+
+# To build and push the image the required commands are 
+docker login
+./gradlew build
+cp build/libs/bootcamp-java-mysql-project-1.0-SNAPSHOT.jar .
+./gradlew dockerPushDockerHub
+rm bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
+docker logout
+# Verify dockerhub account and delete image from local machine
+
 
 
 
