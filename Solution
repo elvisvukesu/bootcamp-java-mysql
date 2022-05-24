@@ -28,6 +28,17 @@ docker run -d \
 -p 3306:3306 \
 mysql
 
+# Set env variables 
+export DB_USER=db-user
+export DB_NAME=mysql-db
+export DB_SERVER=localhost
+export DB_PWD=password
+
+# Build and run the java application.
+./gradlew build
+cd build/libs
+java -jar bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
+
 Exercise 2
 # Start phpmyadmin as a container
 docker run -d \
@@ -190,7 +201,3 @@ Exercise 7.
 # Start the conainers using docker compose
 
 # Access the container from the browswer
-
-
-
-
