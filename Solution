@@ -111,7 +111,85 @@ cp build/libs/bootcamp-java-mysql-project-1.0-SNAPSHOT.jar .
 ./gradlew dockerPushDockerHub
 rm bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
 docker logout
+
 # Verify dockerhub account and delete image from local machine
+docker images
+docker rmi -f xxxxxxxx
+
+Exercise 6.
+# Add the java web app to the docker-compose file
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports: 
+      - 3306:3306
+    networks:
+      - java-app-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PWD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PWD}
+    volumes:
+      - db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    networks:
+      - java-app-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PWD}
+      - PMA_HOST=${PMA_HOST}
+      - PMA_PORT=${PMA_PORT}
+  
+  java-mysql-app:
+    image: elvisvukesu/java-mysql-app:1.0-SNAPSHOT
+    container_name: java-mysql-app
+    ports:
+      -8080:8080
+    depends_on:
+      - mysql
+    networks:
+      - java-app-network
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+      - DB_SERVER=${DB_SERVER}
+      - DB_PWD=${DB_PWD}
+
+volumes:
+  db-data:
+    driver: local
+networks:
+  mysql-network:
+    driver: bridge
+    
+# Create a shell script to export all the environmental variables needed for the containers
+touch env-vars.sh
+
+#!/bin/bash
+export MYSQL_ROOT_PASSWORD=password1234
+export MYSQL_DATABASE=mysql-db
+export MYSQL_USER=db-user
+export MYSQL_PASSWORD=password5678
+export PMA_HOST=mysql
+export PMA_PORT=3306
+export DB_USER=db-user
+export DB_NAME=mysql-db
+export DB_SERVER=mysql
+export DB_PWD=password5678
+
+Exercise 7.
+# Delete all images and containers running on the server
+
+# Run the bash shell script to set the env variables
+
+# Start the conainers using docker compose
+
+# Access the container from the browswer
 
 
 
