@@ -1,0 +1,88 @@
+Exercise 0
+# Launch ubuntu t2.medium instance and install prerequisites
+sudo apt-get update -y 
+sudo apt-get upgrade -y 
+sudo apt install docker.io -y
+sudo apt install docker-compose -y
+sudo apt install net-tools -y
+sudo usermod -aG docker ubuntu 
+sudo apt install java-11-openjdk-amd64
+
+# Set the JAVA_HOME path in /etc/profile
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+PATH=$PATH:$HOME/bin:$JAVA_HOME
+log out as ubuntu user and log back in so that changes can take effect
+
+# Clone the repo
+cd ~
+git clone https://gitlab.com/devops-bootcamp3/bootcamp-java-mysql
+
+Exercise 1
+# Start mysql container
+docker run -d \
+--name mysql.server \
+-e MYSQL_ROOT_PASSWORD=password \
+-e MYSQL_DATABASE=mysql-db \
+-e MYSQL_USER=db-user \
+-e MYSQL_PASSWORD=password \
+-p 3306:3306 \
+mysql
+
+Exercise 2
+# Start phpmyadmin as a container
+docker run -d \
+--name phpmyadmin \
+-e MYSQL_ROOT_PASSWORD=password \
+-e MYSQL_PASSWORD=password \
+--link mysql.server:db \
+-p 8081:80 \
+phpmyadmin
+
+Exercise 3
+# Create a docker compose file
+services:
+  database:
+    image: mysql
+    ports: 
+      - 3306:3306
+    networks:
+      - mysql-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=mysql-db
+      - MYSQL_USER=db-user
+      - MYSQL_PASSWORD=password
+    volumes:
+      - db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    links:
+      - "database:db"
+    ports: 
+      - 8081:80
+    networks:
+      - mysql-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+
+volumes:
+  db-data:
+    driver: local
+networks:
+  mysql-network:
+    driver: bridge
+    
+Exercise 4
+# Dockerize the java app
+FROM eclipse-temurin:8-jdk-alpine
+RUN mkdir /app
+COPY build/libs/bootcamp-java-mysql-project-1.0-SNAPSHOT.jar /opt/app
+WORKDIR /app
+EXPOSE 8080
+CMD ["java", "-jar", "bootcamp-java-mysql-project-1.0-SNAPSHOT.jar"]
+
+Exercise 5
+
+
+
