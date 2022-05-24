@@ -1,29 +1,44 @@
 services:
-  database:
+  mysql:
     image: mysql
+    container_name: mysql
     ports: 
       - 3306:3306
     networks:
-      - mysql-network
+      - java-app-network
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=mysql-db
-      - MYSQL_USER=db-user
-      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PWD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PWD}
     volumes:
       - db-data:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin
-    links:
-      - "database:db"
-    ports: 
-      - 8081:80
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
     networks:
-      - mysql-network
+      - java-app-network
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_PASSWORD=password
-
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PWD}
+      - PMA_HOST=${PMA_HOST}
+      - PMA_PORT=${PMA_PORT}
+  
+  java-mysql-app:
+    image: elvisvukesu/java-mysql-app:1.0-SNAPSHOT
+    container_name: java-mysql-app
+    ports:
+      -8080:8080
+    depends_on:
+      - mysql
+    networks:
+      - java-app-network
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+      - DB_SERVER=${DB_SERVER}
+      - DB_PWD=${DB_PWD}
 
 volumes:
   db-data:
