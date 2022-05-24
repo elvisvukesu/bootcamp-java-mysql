@@ -2,12 +2,19 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id "com.palantir.docker" version "0.22.1"
 }
 
 group 'com.example'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+
+docker {
+    name "${project.name}:${project.version}"
+    files 'bootcamp-java-mysql-project-1.0-SNAPSHOT.jar'
+    tag 'DockerHub', "elvisvukesu/java-mysql-app:${project.version}"
+}
 
 repositories {
     mavenCentral()
