@@ -16,15 +16,14 @@ Set the JAVA_HOME path in /etc/profile
     JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     PATH=$PATH:$HOME/bin:$JAVA_HOME
     
-log out as ubuntu user and log back in so that changes can take effect
-
-Clone the repo
+log out as ubuntu user and log back in so that changes can take effect.
+Clone the repo.
 
     cd ~
     git clone https://gitlab.com/devops-bootcamp3/bootcamp-java-mysql
 
 # Exercise 1
-Start mysql container
+Start mysql container.
 
     docker run -d \
     --name mysql.server \
@@ -35,7 +34,7 @@ Start mysql container
     -p 3306:3306 \
     mysql
 
-Set env variables 
+Set env variables.
 
     export DB_USER=db-user
     export DB_NAME=mysql-db
@@ -49,7 +48,7 @@ Build and run the java application.
     java -jar bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
 
 # Exercise 2
-Start phpmyadmin as a container
+Start phpmyadmin as a container.
 
     docker run -d \
     --name phpmyadmin \
@@ -60,7 +59,7 @@ Start phpmyadmin as a container
     phpmyadmin
 
 # Exercise 3
-Create a docker compose file
+Create a docker compose file.
 
     services:
       database:
@@ -96,7 +95,7 @@ Create a docker compose file
         driver: bridge
     
 # Exercise 4
-Dockerize the java app
+Dockerize the java app.
 View base image documentation https://hub.docker.com/_/eclipse-temurin
 
     FROM eclipse-temurin:8-jdk-alpine
@@ -107,17 +106,17 @@ View base image documentation https://hub.docker.com/_/eclipse-temurin
     CMD ["java", "-jar", "bootcamp-java-mysql-project-1.0-SNAPSHOT.jar"]
 
 # Exercise 5
-To build and publish the image on dockerhub, follow the following steps
-Add the palantir plugin id to the plugins section of the build.gradle file
+To build and publish the image on dockerhub, follow the following steps.
+Add the palantir plugin id to the plugins section of the build.gradle file.
 
     id "com.palantir.docker" version "0.22.1"
 
-Ensure a version is mentioned in the build.gradle file
+Ensure a version is mentioned in the build.gradle file.
 
-Add the docker configuration to the build.gradle file
+Add the docker configuration to the build.gradle file.
 More info on plugin used https://tomgregory.com/automating-docker-builds-with-gradle/
-Create a repository in dockerhub
-Replace <dockerHub-username> with your dockerhub username and the image name with your image name
+Create a repository in dockerhub.
+Replace <dockerHub-username> with your dockerhub username and the image name with your image name.
     
     docker {
         name "${project.name}:${project.version}"
@@ -125,7 +124,7 @@ Replace <dockerHub-username> with your dockerhub username and the image name wit
         tag 'DockerHub', "elvisvukesu/java-mysql-app:${project.version}"
     }
 
-To view available tasks from the plugin run the following command and look for the 'docker tasks' section
+To view available tasks from the plugin run the following command and look for the 'docker tasks' section.
     
     ./gradlew tasks
 
@@ -138,13 +137,13 @@ To build and push the image the required commands are
     rm bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
     docker logout
 
-Verify dockerhub account and delete image from local machine
+Verify dockerhub account and delete image from local machine.
     
     docker images
     docker rmi -f xxxxxxxx
 
 # Exercise 6.
-Add the java web app to the docker-compose file
+Add the java web app to the docker-compose file.
     
     services:
       mysql:
@@ -195,7 +194,7 @@ Add the java web app to the docker-compose file
       mysql-network:
         driver: bridge
     
-Create a shell script to export all the environmental variables needed for the containers
+Create a shell script to export all the environmental variables needed for the containers.
     
     touch env-vars.sh
 
@@ -212,10 +211,7 @@ Create a shell script to export all the environmental variables needed for the c
     export DB_PWD=password5678
 
 # Exercise 7.
-Delete all images and containers running on the server
-
-Run the bash shell script to set the env variables
-
-Start the conainers using docker compose
-
-Access the container from the browswer
+Delete all images and containers running on the server.
+Run the bash shell script to set the env variables.
+Start the conainers using docker compose.
+Access the container from the browswer.
