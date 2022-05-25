@@ -98,6 +98,7 @@ Create a docker compose file
 # Exercise 4
 Dockerize the java app
 View base image documentation https://hub.docker.com/_/eclipse-temurin
+
     FROM eclipse-temurin:8-jdk-alpine
     RUN mkdir /opt/app
     COPY bootcamp-java-mysql-project-1.0-SNAPSHOT.jar /opt/app
@@ -105,27 +106,31 @@ View base image documentation https://hub.docker.com/_/eclipse-temurin
     EXPOSE 8080
     CMD ["java", "-jar", "bootcamp-java-mysql-project-1.0-SNAPSHOT.jar"]
 
-Exercise 5
+# Exercise 5
 To build and publish the image on dockerhub, follow the following steps
 Add the palantir plugin id to the plugins section of the build.gradle file
+
     id "com.palantir.docker" version "0.22.1"
 
 Ensure a version is mentioned in the build.gradle file
 
-# Add the docker configuration to the build.gradle file
-# More info on plugin used https://tomgregory.com/automating-docker-builds-with-gradle/
-# Create a repository in dockerhub
-# Replace <dockerHub-username> with your dockerhub username and the image name with your image name
+Add the docker configuration to the build.gradle file
+More info on plugin used https://tomgregory.com/automating-docker-builds-with-gradle/
+Create a repository in dockerhub
+Replace <dockerHub-username> with your dockerhub username and the image name with your image name
+    
     docker {
         name "${project.name}:${project.version}"
         files 'bootcamp-java-mysql-project-1.0-SNAPSHOT.jar'
         tag 'DockerHub', "elvisvukesu/java-mysql-app:${project.version}"
     }
 
-# To view available tasks from the plugin run the following command and look for the 'docker tasks' section
+To view available tasks from the plugin run the following command and look for the 'docker tasks' section
+    
     ./gradlew tasks
 
-# To build and push the image the required commands are 
+To build and push the image the required commands are 
+    
     docker login
     ./gradlew build
     cp build/libs/bootcamp-java-mysql-project-1.0-SNAPSHOT.jar .
@@ -133,12 +138,14 @@ Ensure a version is mentioned in the build.gradle file
     rm bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
     docker logout
 
-# Verify dockerhub account and delete image from local machine
+Verify dockerhub account and delete image from local machine
+    
     docker images
     docker rmi -f xxxxxxxx
 
-Exercise 6.
-# Add the java web app to the docker-compose file
+# Exercise 6.
+Add the java web app to the docker-compose file
+    
     services:
       mysql:
         image: mysql
@@ -188,7 +195,8 @@ Exercise 6.
       mysql-network:
         driver: bridge
     
-# Create a shell script to export all the environmental variables needed for the containers
+Create a shell script to export all the environmental variables needed for the containers
+    
     touch env-vars.sh
 
     #!/bin/bash
@@ -203,13 +211,11 @@ Exercise 6.
     export DB_SERVER=mysql
     export DB_PWD=password5678
 
-Exercise 7.
-# Delete all images and containers running on the server
+# Exercise 7.
+Delete all images and containers running on the server
 
-# Run the bash shell script to set the env variables
+Run the bash shell script to set the env variables
 
-# Start the conainers using docker compose
+Start the conainers using docker compose
 
-# Access the container from the browswer
-
-
+Access the container from the browswer
