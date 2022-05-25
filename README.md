@@ -204,6 +204,8 @@ Add the java web app to the docker-compose file.
 Create a shell script to export all the environmental variables needed for the containers.
     
     touch env-vars.sh
+    
+Copy the following code and paste in env-vars.sh
 
     #!/bin/bash
     export MYSQL_ROOT_PASSWORD=password1234
