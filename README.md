@@ -1,5 +1,7 @@
 # Exercise 0
-Launch ubuntu t2.medium instance and install prerequisites. Use the following code as user data when launching the instance. 
+Launch ubuntu t2.medium instance and install prerequisites. 
+Use the following code as user data when launching the instance. 
+
     #!/bin/bash
     sudo apt-get update -y 
     sudo apt-get upgrade -y 
