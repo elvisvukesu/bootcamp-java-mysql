@@ -1,5 +1,6 @@
 # Exercise 0
 Launch ubuntu t2.medium instance and install prerequisites. 
+
 Use the following code as user data when launching the instance. 
 
     #!/bin/bash
@@ -17,6 +18,7 @@ Set the JAVA_HOME path in /etc/profile
     PATH=$PATH:$HOME/bin:$JAVA_HOME
     
 log out as ubuntu user and log back in so that changes can take effect.
+
 Clone the repo.
 
     cd ~
@@ -96,6 +98,7 @@ Create a docker compose file.
     
 # Exercise 4
 Dockerize the java app.
+
 View base image documentation https://hub.docker.com/_/eclipse-temurin
 
     FROM eclipse-temurin:8-jdk-alpine
@@ -107,6 +110,7 @@ View base image documentation https://hub.docker.com/_/eclipse-temurin
 
 # Exercise 5
 To build and publish the image on dockerhub, follow the following steps.
+
 Add the palantir plugin id to the plugins section of the build.gradle file.
 
     id "com.palantir.docker" version "0.22.1"
@@ -114,8 +118,11 @@ Add the palantir plugin id to the plugins section of the build.gradle file.
 Ensure a version is mentioned in the build.gradle file.
 
 Add the docker configuration to the build.gradle file.
+
 More info on plugin used https://tomgregory.com/automating-docker-builds-with-gradle/
+
 Create a repository in dockerhub.
+
 Replace <dockerHub-username> with your dockerhub username and the image name with your image name.
     
     docker {
@@ -212,6 +219,9 @@ Create a shell script to export all the environmental variables needed for the c
 
 # Exercise 7.
 Delete all images and containers running on the server.
+    
 Run the bash shell script to set the env variables.
+    
 Start the conainers using docker compose.
+    
 Access the container from the browswer.
