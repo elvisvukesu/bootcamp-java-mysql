@@ -201,6 +201,6 @@ Exercise 7.
 
 # Start the conainers using docker compose
 
-# Access the container from the browswer 
+# Access the container from the browswer
 
 
