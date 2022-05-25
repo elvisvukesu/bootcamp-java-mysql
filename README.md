@@ -1,5 +1,5 @@
 # Exercise 0
-# Launch ubuntu t2.medium instance and install prerequisites. Use the following code as user data when launching the instance. 
+Launch ubuntu t2.medium instance and install prerequisites. Use the following code as user data when launching the instance. 
     #!/bin/bash
     sudo apt-get update -y 
     sudo apt-get upgrade -y 
@@ -9,17 +9,17 @@
     sudo usermod -aG docker ubuntu 
     sudo apt install java-11-openjdk-amd64 -y
 
-# Set the JAVA_HOME path in /etc/profile
+Set the JAVA_HOME path in /etc/profile
     JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     PATH=$PATH:$HOME/bin:$JAVA_HOME
 log out as ubuntu user and log back in so that changes can take effect
 
-# Clone the repo
+Clone the repo
     cd ~
     git clone https://gitlab.com/devops-bootcamp3/bootcamp-java-mysql
 
 # Exercise 1
-# Start mysql container
+Start mysql container
     docker run -d \
     --name mysql.server \
     -e MYSQL_ROOT_PASSWORD=password \
@@ -29,19 +29,19 @@ log out as ubuntu user and log back in so that changes can take effect
     -p 3306:3306 \
     mysql
 
-# Set env variables 
+Set env variables 
     export DB_USER=db-user
     export DB_NAME=mysql-db
     export DB_SERVER=localhost
     export DB_PWD=password
 
-# Build and run the java application.
+Build and run the java application.
     ./gradlew build
     cd build/libs
     java -jar bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
 
 # Exercise 2
-# Start phpmyadmin as a container
+Start phpmyadmin as a container
     docker run -d \
     --name phpmyadmin \
     -e MYSQL_ROOT_PASSWORD=password \
@@ -51,7 +51,7 @@ log out as ubuntu user and log back in so that changes can take effect
     phpmyadmin
 
 # Exercise 3
-# Create a docker compose file
+Create a docker compose file
     services:
       database:
         image: mysql
@@ -86,8 +86,8 @@ log out as ubuntu user and log back in so that changes can take effect
         driver: bridge
     
 # Exercise 4
-# Dockerize the java app
-# View base image documentation https://hub.docker.com/_/eclipse-temurin
+Dockerize the java app
+View base image documentation https://hub.docker.com/_/eclipse-temurin
     FROM eclipse-temurin:8-jdk-alpine
     RUN mkdir /opt/app
     COPY bootcamp-java-mysql-project-1.0-SNAPSHOT.jar /opt/app
@@ -96,12 +96,11 @@ log out as ubuntu user and log back in so that changes can take effect
     CMD ["java", "-jar", "bootcamp-java-mysql-project-1.0-SNAPSHOT.jar"]
 
 Exercise 5
-# To build and publish the image on dockerhub, follow the following steps
-
-# Add the palantir plugin id to the plugins section of the build.gradle file
+To build and publish the image on dockerhub, follow the following steps
+Add the palantir plugin id to the plugins section of the build.gradle file
     id "com.palantir.docker" version "0.22.1"
 
-# Ensure a version is mentioned in the build.gradle file
+Ensure a version is mentioned in the build.gradle file
 
 # Add the docker configuration to the build.gradle file
 # More info on plugin used https://tomgregory.com/automating-docker-builds-with-gradle/
