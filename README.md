@@ -25,6 +25,7 @@ Clone the repo
 
 # Exercise 1
 Start mysql container
+
     docker run -d \
     --name mysql.server \
     -e MYSQL_ROOT_PASSWORD=password \
@@ -35,18 +36,21 @@ Start mysql container
     mysql
 
 Set env variables 
+
     export DB_USER=db-user
     export DB_NAME=mysql-db
     export DB_SERVER=localhost
     export DB_PWD=password
 
 Build and run the java application.
+
     ./gradlew build
     cd build/libs
     java -jar bootcamp-java-mysql-project-1.0-SNAPSHOT.jar
 
 # Exercise 2
 Start phpmyadmin as a container
+
     docker run -d \
     --name phpmyadmin \
     -e MYSQL_ROOT_PASSWORD=password \
@@ -57,6 +61,7 @@ Start phpmyadmin as a container
 
 # Exercise 3
 Create a docker compose file
+
     services:
       database:
         image: mysql
