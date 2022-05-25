@@ -12,11 +12,14 @@ Use the following code as user data when launching the instance.
     sudo apt install java-11-openjdk-amd64 -y
 
 Set the JAVA_HOME path in /etc/profile
+
     JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     PATH=$PATH:$HOME/bin:$JAVA_HOME
+    
 log out as ubuntu user and log back in so that changes can take effect
 
 Clone the repo
+
     cd ~
     git clone https://gitlab.com/devops-bootcamp3/bootcamp-java-mysql
 
