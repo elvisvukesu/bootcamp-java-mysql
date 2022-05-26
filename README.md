@@ -183,7 +183,7 @@ Add the java web app to the docker-compose file.
         image: elvisvukesu/java-mysql-app:1.0-SNAPSHOT
         container_name: java-mysql-app
         ports:
-          -8080:8080
+          - 8080:8080
         depends_on:
           - mysql
         networks:
