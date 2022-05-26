@@ -174,6 +174,8 @@ Add the java web app to the docker-compose file.
           - mysql
         networks:
           - java-app-network
+        ports:
+          - 8081:80
         environment:
           - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PWD}
           - PMA_HOST=${PMA_HOST}
