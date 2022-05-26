@@ -214,7 +214,7 @@ Copy the following code and paste in env-vars.sh
     export PMA_HOST=mysql
     export PMA_PORT=3306
     export DB_USER=db-user
-    export DB_NAME=mysql-db
+    export DB_NAME=team-member-projects
     export DB_SERVER=mysql
     export DB_PWD=password5678
 
