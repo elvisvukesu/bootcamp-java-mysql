@@ -210,7 +210,7 @@ Create a shell script to export all the environmental variables needed for the c
 Copy the following code and paste in env-vars.sh
 
     #!/bin/bash
-    export MYSQL_ROOT_PASSWORD=password1234
+    export MYSQL_ROOT_PWD=password1234
     export MYSQL_DATABASE=mysql-db
     export MYSQL_USER=db-user
     export MYSQL_PASSWORD=password5678
