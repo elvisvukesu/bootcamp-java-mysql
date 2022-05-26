@@ -36,3 +36,5 @@ jobs:
           echo $Name 
           docker --version
           echo $JAVA_HOME
+          docker ps
+          java --version
