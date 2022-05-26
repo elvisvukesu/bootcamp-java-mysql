@@ -4,8 +4,8 @@ Launch ubuntu t2.medium instance and install prerequisites.
 Use the following code as user data when launching the instance. 
 
     #!/bin/bash
-    sudo apt-get update -y 
-    sudo apt-get upgrade -y 
+    sudo apt update -y 
+    sudo apt upgrade -y 
     sudo apt install docker.io -y
     sudo apt install docker-compose -y
     sudo apt install net-tools -y
