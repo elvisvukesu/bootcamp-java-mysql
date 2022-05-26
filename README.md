@@ -198,7 +198,7 @@ Add the java web app to the docker-compose file.
       db-data:
         driver: local
     networks:
-      mysql-network:
+      java-app-network:
         driver: bridge
     
 Create a shell script to export all the environmental variables needed for the containers.
