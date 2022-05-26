@@ -39,3 +39,4 @@ jobs:
           docker ps
           java --version
           echo $USER
+          echo $?
