@@ -211,9 +211,6 @@ Copy the following code and paste in env-vars.sh
 
     #!/bin/bash
     export MYSQL_ROOT_PWD=password1234
-    export MYSQL_DATABASE=mysql-db
-    export MYSQL_USER=db-user
-    export MYSQL_PASSWORD=password5678
     export PMA_HOST=mysql
     export PMA_PORT=3306
     export DB_USER=db-user
